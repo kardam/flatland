@@ -2,14 +2,19 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-  {% load staticfiles %}
-
-
-  <script src="{% static "js.js" %}" type="text/javascript" charset="utf-8"></script>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<title>Flatland</title>
+	
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" media="screen" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" />
+	
+	<script type="text/javascript" src="{% static 'vendor/jquery-2.0.3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	
+	<script src="{% static 'javascript/flatland.js' %}" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-<canvas height="500" width="500">
-</canvas>
+	<canvas height="500" width="500"></canvas>
 </body>
 </html>
