@@ -23,7 +23,15 @@ $(document).ready(function() {
   circle.attr("fill", "#f00");
   circle.attr("stroke", "#fff");
 
-  var coord = [10,10,50,50]
+  var coord = [10,10,50,50];
+
   var c = paper.rect(10,10,50,50);
 
+  var socket = io.connect('http://localhost:8422');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+
 });
+
