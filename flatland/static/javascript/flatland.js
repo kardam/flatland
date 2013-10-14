@@ -1,13 +1,17 @@
 var d = {
 
 	mode: "2d",
-	character: {
-		coord: [[10,10],[20,20],[30,30]]
-	},
-	triangle: {
-		coord: [[10,10],[20,20],[30,30]]
-	}
-
+  shapes: [
+    {
+      type: "hero",
+      coord: [[10,10],[20,20],[30,30]],
+      
+    },
+    {
+      type: "line",
+      coord: [40,50]
+    }
+  ],
 };
 
 var visualizeShape = function(shape) {
@@ -16,6 +20,27 @@ var visualizeShape = function(shape) {
 
 visualizeShape(d.character);
 
+//socket should be visible
+var socket = io.connect('http://localhost:8422');
+
+var events = {
+  moveLeft: function() {
+    console.log("left");
+    socket.send("left");
+  },
+  moveRight: function() {
+    console.log("right");
+    socket.send("right");
+  },
+  moveForward: function() {
+    console.log("for");
+    socket.send("for");
+  },
+  moveBackward: function() {
+    console.log("back");
+    socket.send("back");
+  }
+}
 $(document).ready(function() {
 
 	/*var paper = Raphael(10, 10, 500, 500);
@@ -28,6 +53,8 @@ $(document).ready(function() {
 	
 	// abstraction level: upper
 	// .. input
+
+
 	$(document).keydown(function(e) {
 		switch(e.which) {
 			case 37: 
@@ -47,5 +74,23 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	
+  var coord = [10,10,50,50];
+
+  //var c = paper.rect(10,10,50,50);
+
+  socket.on('connect', function () {
+    socket.send(555);
+
+    socket.on('message', function (msg) {
+      console.log(111);
+    });
+  });
+
+
 });
 
+$(document).keypress(function(e) {
+  console.log( "Handler for .keypress() called." );
+  console.log(e);
+  socket.send(e);
+});

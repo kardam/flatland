@@ -1,8 +1,16 @@
 var io = require('socket.io').listen(8422);
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+
+  console.log("client connected");
+
+  socket.on('message', function (mm) {
+    console.log(mm);
   });
+  socket.on('disconnect', function () {
+    socket.emit("dsds");
+  });
+
+  socket.send("nl");
+
 });
