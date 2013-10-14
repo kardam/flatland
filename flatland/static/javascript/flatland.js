@@ -18,12 +18,33 @@ visualizeShape(d.character);
 
 $(document).ready(function() {
 
-	var paper = Raphael(10, 10, 500, 500);
+	/*var paper = Raphael(10, 10, 500, 500);
 	var circle = paper.circle(50, 40, 10);
 	circle.attr("fill", "#f00");
 	circle.attr("stroke", "#fff");
 
 	var coord = [10,10,50,50]
-	var c = paper.rect(10,10,50,50);
+	var c = paper.rect(10,10,50,50);*/
+	
+	// abstraction level: upper
+	// .. input
+	/*$(document).keydown(function(e) {
+		switch(e.which) {
+			case 37: 
+				events.moveLeft();
+				break;
+			case 37: 
+				events.moveLeft();
+				break;
+			case 37: 
+				events.moveLeft();
+				break;
+			case 37: 
+				events.moveLeft();
+				break;
+			default: return;
+		}
+		e.preventDefault();
+	});*/
 
 });
