@@ -11,7 +11,7 @@ var d = {
 };
 
 var visualizeShape = function(shape) {
-	console.log(shape.coord);
+	//console.log(shape.coord);
 }
 
 visualizeShape(d.character);
@@ -28,24 +28,24 @@ $(document).ready(function() {
 	
 	// abstraction level: upper
 	// .. input
-	/*$(document).keydown(function(e) {
+	$(document).keydown(function(e) {
 		switch(e.which) {
 			case 37: 
-				events.moveLeft();
+				character.rotateLeft();
 				break;
-			case 37: 
-				events.moveLeft();
+			case 38: 
+				character.moveForward();
 				break;
-			case 37: 
-				events.moveLeft();
+			case 39: 
+				character.rotateRight();
 				break;
-			case 37: 
-				events.moveLeft();
+			case 40: 
+				character.moveBackward();
 				break;
 			default: return;
 		}
 		e.preventDefault();
-	});*/
+	});
 	
 });
 
