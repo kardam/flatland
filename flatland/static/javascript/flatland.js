@@ -22,7 +22,7 @@ $(document).ready(function() {
 	var circle = paper.circle(50, 40, 10);
 	circle.attr("fill", "#f00");
 	circle.attr("stroke", "#fff");
-
+	
 	var coord = [10,10,50,50]
 	var c = paper.rect(10,10,50,50);*/
 	
@@ -46,5 +46,6 @@ $(document).ready(function() {
 		}
 		e.preventDefault();
 	});*/
-
+	
 });
+
