@@ -21,7 +21,7 @@ var visualizeShape = function(shape) {
 visualizeShape(d.character);
 
 //socket should be visible
-var socket = io.connect('http://localhost:8422');
+//var socket = io.connect('http://localhost:8422');
 
 var events = {
   moveLeft: function() {
@@ -78,13 +78,13 @@ $(document).ready(function() {
 
   //var c = paper.rect(10,10,50,50);
 
-  socket.on('connect', function () {
+  /*socket.on('connect', function () {
     socket.send(555);
 
     socket.on('message', function (msg) {
       console.log(111);
     });
-  });
+  });*/
 
 
 });
@@ -92,5 +92,5 @@ $(document).ready(function() {
 $(document).keypress(function(e) {
   console.log( "Handler for .keypress() called." );
   console.log(e);
-  socket.send(e);
+  //socket.send(e);
 });
