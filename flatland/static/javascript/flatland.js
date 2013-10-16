@@ -5,7 +5,7 @@ var d = {
     {
       type: "hero",
       coord: [[10,10],[20,20],[30,30]],
-      
+      alpha: 90
     },
     {
       type: "line",
@@ -41,6 +41,7 @@ var events = {
     socket.send("back");
   }
 }
+
 $(document).ready(function() {
 
 	/*var paper = Raphael(10, 10, 500, 500);
@@ -53,7 +54,6 @@ $(document).ready(function() {
 	
 	// abstraction level: upper
 	// .. input
-
 
 	$(document).keydown(function(e) {
 		switch(e.which) {
@@ -94,3 +94,11 @@ $(document).keypress(function(e) {
   console.log(e);
   socket.send(e);
 });
+
+
+// add new method for all raphael objects of type 'path' that
+// retrieves the current path string
+Raphael.el.getCurrentPath = function() {
+  return Raphael.transformPath(this.getPath().toString(), this.matrix.toTransformString()).toString();
+}
+
