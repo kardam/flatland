@@ -35,12 +35,12 @@ var shape = function(path) {
 		moveForward: function() {
 			delta_x = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
 			delta_y = shape._speed * Math.cos(shape._alpha * 180 / Math.PI);
-			shape._dom.transform('... t '+ delta_x +' '+ delta_y);
+			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
 		},
 		moveBackward: function() {
-			delta_x = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
-			delta_y = shape._speed * Math.cos(shape._alpha * 180 / Math.PI);
-			shape._dom.transform('... t -'+ delta_x +' -'+ delta_y);
+			delta_x = shape._speed * Math.sin(shape._alpha * 180 / Math.PI) * -1;
+			delta_y = shape._speed * Math.cos(shape._alpha * 180 / Math.PI) * -1;
+			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
 		},
 		moveLeft: function() {
 			return;
@@ -74,5 +74,5 @@ var shape = function(path) {
 $(document).ready(function() {
 	world.create();
 	character = new shape('M 50 50  L 50 100  L 100 100  L 100 50 L 50 50');
-	var triangle = world.space.path('M 100 250  L 100 200  L 200 200  L 100 250');
+	triangle = world.space.path('M 100 250  L 100 200  L 200 200  L 100 250');
 });
