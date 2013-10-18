@@ -51,10 +51,14 @@ var shape = function(path) {
 			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
 		},
 		moveLeft: function() {
-			return;
+			delta_x = shape._speed * Math.cos(shape._alpha * 180 / Math.PI);
+			delta_y = shape._speed * Math.sin(shape._alpha * 180 / Math.PI) * -1;
+			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
 		},
 		moveRight: function() {
-			return;
+			delta_x = shape._speed * Math.cos(shape._alpha * 180 / Math.PI) * -1;
+			delta_y = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
+			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
 		},
 		rotateLeft: function() {
 			//shape._alpha -= shape._rotationSpeed;
