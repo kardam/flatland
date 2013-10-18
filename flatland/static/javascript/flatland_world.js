@@ -22,13 +22,21 @@ var shape = function(path) {
 		_alpha: 45,
 		_speed: 10,
 		_rotationSpeed: 10,
+		_initialPath: '',
 		
 		/* constructor and destructor */
 		create: function(path) {
+			shape._initialPath = path;
 			shape._dom = world.space.path(path);
 		},
 		perish: function() {
 			shape._dom.remove();
+		},
+
+		/* utils */
+		getPath: function() {
+			currentPath = Raphael.mapPath(shape._initialPath, shape._dom.matrix);
+			return currentPath;
 		},
 		
 		/* movement methods */

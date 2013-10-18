@@ -90,8 +90,8 @@ $(document).ready(function() {
 });
 
 $(document).keypress(function(e) {
-  console.log( "Handler for .keypress() called." );
-  console.log(e);
+  //console.log( "Handler for .keypress() called." );
+  //console.log(e);
   //socket.send(e);
 });
 
