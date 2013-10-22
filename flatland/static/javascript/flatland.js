@@ -52,10 +52,7 @@ $(document).ready(function() {
 	var coord = [10,10,50,50]
 	var c = paper.rect(10,10,50,50);*/
 	
-	// abstraction level: upper
-	// .. input
-
-	$(document).keydown(function(e) {
+	/*$(document).keydown(function(e) {
 		switch(e.which) {
 			case 37: 
 				character.rotateLeft();
@@ -73,10 +70,8 @@ $(document).ready(function() {
 		}
 		e.preventDefault();
 	});
-	
+	*/
   var coord = [10,10,50,50];
-
-  //var c = paper.rect(10,10,50,50);
 
   /*socket.on('connect', function () {
     socket.send(555);

@@ -1,4 +1,3 @@
-
 /* flatland, our world: a god object */
 var world  = {
 	
@@ -23,16 +22,52 @@ var shape = function(path) {
 		_speed: 10,
 		_rotationSpeed: 10,
 		_initialPath: '',
+		_interval: 0,
+		
+		/* mechanics properties */
+		_mass: 0,
+		_vx: 0,
+		_vy: 0,
 		
 		/* constructor and destructor */
 		create: function(path) {
 			shape._initialPath = path;
 			shape._dom = world.space.path(path);
+			//shape.__recalculateMechanics();
 		},
 		perish: function() {
 			shape._dom.remove();
 		},
-
+		
+		/* mechanics methods */
+		getVelocity: function() {
+			return 	{	vx: shape._vx, 
+						vy: shape._vy	};
+		},
+		addVelocity: function(vx, vy) {
+			shape._vx += vx;
+			shape._vy += vy;
+			shape.__recalculateMechanics();
+		},
+		setVelocity: function(vx, vy) {
+			shape._vx = vx;
+			shape._vy = vy;
+			shape.__recalculateMechanics();
+		},
+		getMass: function() {
+			return shape._mass;
+		},
+		setMass: function(mass) {
+			shape._mass = mass;
+			shape.__recalculateMechanics();
+		},
+		__recalculateMechanics: function() {
+			window.clearInterval(shape._interval);
+			shape._interval = window.setInterval(function() {
+				shape._dom.transform('... t '+ shape._vx +' '+ shape._vy +' ');
+			}, 10);
+		},
+		
 		/* utils */
 		getPath: function() {
 			currentPath = Raphael.mapPath(shape._initialPath, shape._dom.matrix);
@@ -70,21 +105,16 @@ var shape = function(path) {
 		},
 		
 		/* AI methods */
-		addBrain: function() {
-			return;
+		addBrain: function(brain) {
+			shape._brain = brain;
+			shape._brain.addAvatar(shape);
 		}, 
 		removeBrain: function() {
-			return;
+			shape._brain.removeAvatar();
+			shape._brain = false;
 		}
 	}; 
 	shape.create(path);
 	return shape;
 }
 
-
-/* init */
-$(document).ready(function() {
-	world.create();
-	character = new shape('M 50 50  L 50 100  L 100 100  L 100 50 L 50 50');
-	triangle = world.space.path('M 100 250  L 100 200  L 200 200  L 100 250');
-});

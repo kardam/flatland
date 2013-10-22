@@ -13,10 +13,12 @@
 	<script type="text/javascript" src="{% static 'vendor/jquery-2.0.3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'vendor/raphael.js' %}"></script>
-	<script src="http://localhost:8422/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="http://localhost:8422/socket.io/socket.io.js"></script>
 	
-	<script src="{% static 'javascript/flatland_world.js' %}" type="text/javascript" charset="utf-8"></script>
-	<script src="{% static 'javascript/flatland.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="{% static 'javascript/physics.js' %}"></script>
+	<script type="text/javascript" src="{% static 'javascript/input.js' %}"></script>
+	<script type="text/javascript" src="{% static 'javascript/flatland.js' %}"></script>
+	<script type="text/javascript" src="{% static 'javascript/init.js' %}"></script>
 </head>
 <body>
 	<div id="world"></div>
