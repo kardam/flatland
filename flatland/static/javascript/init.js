@@ -10,4 +10,12 @@ $(document).ready(function() {
 	
 	/* lifeforms */
 	character.addBrain(hero);
+	
+	/* time */
+	//exist();
 });
+
+function exist() {
+	character.move();
+	setTimeout(exist, 100);
+}

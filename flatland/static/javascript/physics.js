@@ -22,7 +22,6 @@ var shape = function(path) {
 		_speed: 10,
 		_rotationSpeed: 10,
 		_initialPath: '',
-		_interval: 0,
 		
 		/* mechanics properties */
 		_mass: 0,
@@ -33,7 +32,6 @@ var shape = function(path) {
 		create: function(path) {
 			shape._initialPath = path;
 			shape._dom = world.space.path(path);
-			//shape.__recalculateMechanics();
 		},
 		perish: function() {
 			shape._dom.remove();
@@ -47,25 +45,19 @@ var shape = function(path) {
 		addVelocity: function(vx, vy) {
 			shape._vx += vx;
 			shape._vy += vy;
-			shape.__recalculateMechanics();
 		},
 		setVelocity: function(vx, vy) {
 			shape._vx = vx;
 			shape._vy = vy;
-			shape.__recalculateMechanics();
 		},
 		getMass: function() {
 			return shape._mass;
 		},
 		setMass: function(mass) {
 			shape._mass = mass;
-			shape.__recalculateMechanics();
 		},
-		__recalculateMechanics: function() {
-			window.clearInterval(shape._interval);
-			shape._interval = window.setInterval(function() {
-				shape._dom.transform('... t '+ shape._vx +' '+ shape._vy +' ');
-			}, 10);
+		move: function() {
+			shape._dom.transform('... t '+ shape._vx +' '+ shape._vy +' ');
 		},
 		
 		/* utils */
@@ -75,7 +67,7 @@ var shape = function(path) {
 		},
 		
 		/* movement methods */
-		moveForward: function() {
+		/*moveForward: function() {
 			delta_x = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
 			delta_y = shape._speed * Math.cos(shape._alpha * 180 / Math.PI);
 			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
@@ -94,7 +86,7 @@ var shape = function(path) {
 			delta_x = shape._speed * Math.cos(shape._alpha * 180 / Math.PI) * -1;
 			delta_y = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
 			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
-		},
+		},*/
 		rotateLeft: function() {
 			//shape._alpha -= shape._rotationSpeed;
 			shape._dom.transform('... r -'+ shape._rotationSpeed);
