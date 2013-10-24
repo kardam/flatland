@@ -57,6 +57,7 @@ var shape = function(path) {
 			shape._mass = mass;
 		},
 		move: function() {
+			if(shape._vx == 0 && shape._vy == 0) return;
 			shape._dom.transform('... t '+ shape._vx +' '+ shape._vy +' ');
 		},
 		
@@ -67,6 +68,7 @@ var shape = function(path) {
 		},
 		
 		/* movement methods */
+		// @todo Remove the methods.
 		/*moveForward: function() {
 			delta_x = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
 			delta_y = shape._speed * Math.cos(shape._alpha * 180 / Math.PI);
