@@ -4,6 +4,7 @@ var hero = {
 	_avatar: false,
 	_alpha: 45,
 	_speed: 1,
+	_angularSpeed: 7,
 	
 	/* control keys */
 	controls: {
@@ -33,9 +34,9 @@ var hero = {
 				if(e.which == key.code) {
 					if(key.active) return;
 					switch(key_name) {
-						case 'left': hero.moveLeft(hero._speed); break;
+						case 'left': hero.rotateLeft(hero._speed); break;
 						case 'up': hero.moveForward(hero._speed); break;
-						case 'right': hero.moveRight(hero._speed); break;
+						case 'right': hero.rotateRight(hero._speed); break;
 						case 'down': hero.moveBackward(hero._speed); break;
 					}
 					key.active = true;
@@ -47,9 +48,9 @@ var hero = {
 				if(e.which == key.code) {
 					if(!key.active) return;
 					switch(key_name) {
-						case 'left': hero.moveRight(hero._speed); break;
+						case 'left': hero.rotateRight(hero._speed); break;
 						case 'up': hero.moveBackward(hero._speed); break;
-						case 'right': hero.moveLeft(hero._speed); break;
+						case 'right': hero.rotateLeft(hero._speed); break;
 						case 'down': hero.moveForward(hero._speed); break;
 					}
 					key.active = false;
@@ -87,10 +88,10 @@ var hero = {
 	/* rotation movement methods */
 	// @todo Fill in some code.. apparently!
 	rotateLeft: function(speed) {
-		return;
+		hero._avatar.addAngularVelocity(-speed);
 	},
 	rotateRight: function(speed) {
-		return;
+		hero._avatar.addAngularVelocity(speed);
 	}
 }
 
