@@ -86,7 +86,6 @@ var hero = {
 	},
 	
 	/* rotation movement methods */
-	// @todo Fill in some code.. apparently!
 	rotateLeft: function(speed) {
 		hero._avatar.addAngularVelocity(-speed);
 	},

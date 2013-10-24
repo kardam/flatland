@@ -16,18 +16,18 @@ var world  = {
 /* shape: class definition */
 var shape = function(path) {
 	var shape = {
-		/* private properties */
-		_dom: false,
-		_alpha: 45,
-		_speed: 10,
-		_rotationSpeed: 10,
+		/* material properties */
 		_initialPath: '',
+		_dom: false,
 		
 		/* mechanics properties */
 		_mass: 0,
 		_vx: 0,
 		_vy: 0,
 		_omega: 0,
+		
+		/* ai properties */
+		_brain: false,
 		
 		/* constructor and destructor */
 		create: function(path) {
@@ -36,6 +36,13 @@ var shape = function(path) {
 		},
 		perish: function() {
 			shape._dom.remove();
+		},
+		
+		/* material (aka svg) methods */
+		/* .. utils */
+		getPath: function() {
+			currentPath = Raphael.mapPath(shape._initialPath, shape._dom.matrix);
+			return currentPath;
 		},
 		
 		/* mechanics methods */
@@ -81,43 +88,6 @@ var shape = function(path) {
 				shape._dom.transform('... r '+ shape._omega);
 			}
 		},
-		
-		/* utils */
-		getPath: function() {
-			currentPath = Raphael.mapPath(shape._initialPath, shape._dom.matrix);
-			return currentPath;
-		},
-		
-		/* movement methods */
-		// @todo Remove the methods.
-		/*moveForward: function() {
-			delta_x = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
-			delta_y = shape._speed * Math.cos(shape._alpha * 180 / Math.PI);
-			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
-		},
-		moveBackward: function() {
-			delta_x = shape._speed * Math.sin(shape._alpha * 180 / Math.PI) * -1;
-			delta_y = shape._speed * Math.cos(shape._alpha * 180 / Math.PI) * -1;
-			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
-		},
-		moveLeft: function() {
-			delta_x = shape._speed * Math.cos(shape._alpha * 180 / Math.PI);
-			delta_y = shape._speed * Math.sin(shape._alpha * 180 / Math.PI) * -1;
-			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
-		},
-		moveRight: function() {
-			delta_x = shape._speed * Math.cos(shape._alpha * 180 / Math.PI) * -1;
-			delta_y = shape._speed * Math.sin(shape._alpha * 180 / Math.PI);
-			shape._dom.transform('... t '+ delta_x +' '+ delta_y +' ');
-		},
-		rotateLeft: function() {
-			//shape._alpha -= shape._rotationSpeed;
-			shape._dom.transform('... r -'+ shape._rotationSpeed);
-		},
-		rotateRight: function() {
-			//shape._alpha += shape._rotationSpeed;
-			shape._dom.transform('... r '+ shape._rotationSpeed);
-		},*/
 		
 		/* AI methods */
 		addBrain: function(brain) {
