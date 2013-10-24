@@ -15,8 +15,13 @@ $(document).ready(function() {
 	
 	/* time */
 	setInterval(exist, 33);
+	/*setTimeout('', 1);
+	setInterval(exist2, 33);*/
 	function exist() {
 		character.move();
 	}
+	/*function exist2() {
+		//character.redraw();
+	}*/
 });
 

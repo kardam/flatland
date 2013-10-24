@@ -7,7 +7,7 @@ var world  = {
 	
 	create: function() {
 		world.dom = $('#world');
-		world.space = Raphael(document.getElementById('world'), 500, 500);
+		world.space = Raphael(document.getElementById('world'), 500, 360);
 	}
 	
 }
@@ -18,13 +18,12 @@ var shape = function(path) {
 	var shape = {
 		/* material properties */
 		_initialPath: '',
-		_dom: false,
+		_node: false,
 		
 		/* mechanics properties */
 		_mass: 0,
-		_vx: 0,
-		_vy: 0,
-		_omega: 0,
+		_velocities: [],
+		_angularVelocities: [],
 		
 		/* ai properties */
 		_brain: false,
@@ -32,43 +31,58 @@ var shape = function(path) {
 		/* constructor and destructor */
 		create: function(path) {
 			shape._initialPath = path;
-			shape._dom = world.space.path(path);
+			shape._node = world.space.path(path);
 		},
 		perish: function() {
-			shape._dom.remove();
+			shape._node.remove();
 		},
 		
 		/* material (aka svg) methods */
 		/* .. utils */
 		getPath: function() {
-			currentPath = Raphael.mapPath(shape._initialPath, shape._dom.matrix);
+			currentPath = Raphael.mapPath(shape._initialPath, shape._node.matrix);
 			return currentPath;
 		},
 		
 		/* mechanics methods */
 		/* .. linear velocity */
 		getVelocity: function() {
-			return 	{	vx: shape._vx, 
-						vy: shape._vy	};
+			vx = 0;
+			vy = 0;
+			$.each(shape._velocities, function(index, velocity) {
+				vx += velocity.x;
+				vy += velocity.y;
+			});
+			return 	{	x: vx, 
+						y: vy	};
 		},
 		addVelocity: function(vx, vy) {
-			shape._vx += vx;
-			shape._vy += vy;
+			id = shape._velocities.push({
+				x: vx,
+				y: vy
+			});
+			return id;
 		},
-		setVelocity: function(vx, vy) {
-			shape._vx = vx;
-			shape._vy = vy;
+		removeVelocity: function(velocity_id) {
+			velocity_id -= 1;
+			shape._velocities.splice(velocity_id, 1);
 		},
 		
 		/* .. angular velocity */
 		getAngularVelocity: function() {
-			return shape._omega;
+			omega = 0;
+			$.each(shape._angularVelocities, function(index, value){
+				omega += value;
+			});
+			return omega;
 		},
 		addAngularVelocity: function(omega) {
-			shape._omega += omega;
+			id = shape._angularVelocities.push(omega);
+			return id;
 		},
-		setAngularVelocity: function(omega) {
-			shape._omega = omega;
+		removeAngularVelocity: function(velocity_id) {
+			velocity_id -= 1;
+			shape._angularVelocities.splice(velocity_id, 1);
 		},
 		
 		/* .. mass */
@@ -81,12 +95,24 @@ var shape = function(path) {
 		
 		/* .. change state */
 		move: function() {
-			if(shape._vx != 0 || shape._vy != 0) {
-				shape._dom.transform('... t '+ shape._vx +' '+ shape._vy +' ');
+			velocity = shape.getVelocity();
+			if(velocity.x != 0 || velocity.y != 0) {
+				shape._node.transform('... t '+ velocity.x +' '+ velocity.y +' ');
 			}
-			if(shape._omega != 0) {
-				shape._dom.transform('... r '+ shape._omega);
+			angularVelocity = shape.getAngularVelocity();
+			if(angularVelocity != 0) {
+				shape._node.transform('... r '+ angularVelocity);
 			}
+			/*shape._x += shape._vx;
+			shape._y += shape._vy;
+			shape._alpha += shape._omega;
+			shape._node.transform('t '+ shape._x +' '+ shape._y +'  r '+ shape._alpha);*/
+		},
+		redraw: function() {
+			newPath = shape.getPath();
+			shape._initialPath = newPath;
+			shape._node.remove();
+			shape._node = world.space.path(newPath);
 		},
 		
 		/* AI methods */

@@ -3,8 +3,8 @@ var hero = {
 	/* private properties */
 	_avatar: false,
 	_alpha: 45,
-	_speed: 1,
-	_angularSpeed: 7,
+	_speed: 2,
+	_angularSpeed: 2,
 	
 	/* control keys */
 	controls: {
@@ -34,12 +34,11 @@ var hero = {
 				if(e.which == key.code) {
 					if(key.active) return;
 					switch(key_name) {
-						case 'left': hero.rotateLeft(hero._speed); break;
-						case 'up': hero.moveForward(hero._speed); break;
-						case 'right': hero.rotateRight(hero._speed); break;
-						case 'down': hero.moveBackward(hero._speed); break;
+						case 'left': key.active = hero.rotateLeft(hero._angularSpeed); break;
+						case 'up': key.active = hero.moveForward(hero._speed); break;
+						case 'right': key.active = hero.rotateRight(hero._angularSpeed); break;
+						case 'down': key.active = hero.moveBackward(hero._speed); break;
 					}
-					key.active = true;
 				}
 			});
 		});
@@ -47,11 +46,10 @@ var hero = {
 			$.each(hero.controls, function(key_name, key){
 				if(e.which == key.code) {
 					if(!key.active) return;
-					switch(key_name) {
-						case 'left': hero.rotateRight(hero._speed); break;
-						case 'up': hero.moveBackward(hero._speed); break;
-						case 'right': hero.rotateLeft(hero._speed); break;
-						case 'down': hero.moveForward(hero._speed); break;
+					if(key_name == 'left' || key_name == 'right') {
+						hero._avatar.removeAngularVelocity(key.active);
+					} else {
+						hero._avatar.removeVelocity(key.active);
 					}
 					key.active = false;
 				}
@@ -67,30 +65,32 @@ var hero = {
 	moveForward: function(speed) {
 		vx = speed * Math.sin(hero._alpha * 180 / Math.PI);
 		vy = speed * Math.cos(hero._alpha * 180 / Math.PI);
-		hero._avatar.addVelocity(vx, vy);
+		return hero._avatar.addVelocity(vx, vy);
 	},
 	moveBackward: function(speed) {
 		vx = speed * Math.sin(hero._alpha * 180 / Math.PI) * -1;
 		vy = speed * Math.cos(hero._alpha * 180 / Math.PI) * -1;
-		hero._avatar.addVelocity(vx, vy);
+		return hero._avatar.addVelocity(vx, vy);
 	},
 	moveLeft: function(speed) {
 		vx = speed * Math.cos(hero._alpha * 180 / Math.PI);
 		vy = speed * Math.sin(hero._alpha * 180 / Math.PI) * -1;
-		hero._avatar.addVelocity(vx, vy);
+		return hero._avatar.addVelocity(vx, vy);
 	},
 	moveRight: function(speed) {
 		vx = speed * Math.cos(hero._alpha * 180 / Math.PI) * -1;
 		vy = speed * Math.sin(hero._alpha * 180 / Math.PI);
-		hero._avatar.addVelocity(vx, vy);
+		return hero._avatar.addVelocity(vx, vy);
 	},
 	
 	/* rotation movement methods */
 	rotateLeft: function(speed) {
-		hero._avatar.addAngularVelocity(-speed);
+		//hero._alpha -= speed;
+		return hero._avatar.addAngularVelocity(-speed);
 	},
 	rotateRight: function(speed) {
-		hero._avatar.addAngularVelocity(speed);
+		//hero._alpha += speed;
+		return hero._avatar.addAngularVelocity(speed);
 	}
 }
 
